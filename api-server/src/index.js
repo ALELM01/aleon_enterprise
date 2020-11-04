@@ -13,7 +13,7 @@ const empresasRoutes = require('./routes/empresas')
 // Routes
 app.use('/', indexRoutes)
 app.use('/empleados', empleadosRoutes)
-//app.use('/empresas', empresasRoutes)
+app.use('/empresas', empresasRoutes)
 
 //setting
 app.set('views', path.join(__dirname, 'views'))
