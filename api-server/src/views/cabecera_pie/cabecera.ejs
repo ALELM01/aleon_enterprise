@@ -1,91 +1,160 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-body {
-  font-style: italic;
-  font-family: Arial, Helvetica, sans-serif;
-  background: url("https://cronicaglobal.elespanol.com/uploads/s1/35/18/96/9/instrumentos-musicales_11_1000x528.jpeg") 
-            no-repeat fixed center ; 
-            background-size: cover;
-}
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+    <style>
+      body {
+        font-style: italic;
+        font-family: Arial, Helvetica, sans-serif;
+        background: url("https://s1.eestatic.com/2019/05/09/invertia/empresas/Empresas-Horarios_laborales-Recursos_humanos-Empresas_397222866_122452629_1024x576.jpg")
+          no-repeat fixed center;
+        background-size: cover;
+      }
 
-.navbar {
-  overflow: hidden;
-  background-color: #333;
-}
+      .navbar {
+        overflow: hidden;
+        background-color: #333;
+      }
 
-.navbar a {
-  float: left;
-  font-size: 16px;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
+      .navbar a {
+        float: left;
+        font-size: 16px;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+      }
 
-.dropdown {
-  float: left;
-  overflow: hidden;
-}
+      .dropdown {
+        float: left;
+        overflow: hidden;
+      }
 
-.dropdown .dropbtn {
-  font-size: 16px;  
-  border: none;
-  outline: none;
-  color: white;
-  padding: 14px 16px;
-  background-color: inherit;
-  font-family: inherit;
-  margin: 0;
-}
+      .dropdown .dropbtn {
+        font-size: 16px;
+        border: none;
+        outline: none;
+        color: white;
+        padding: 14px 16px;
+        background-color: inherit;
+        font-family: inherit;
+        margin: 0;
+      }
 
-.navbar a:hover, .dropdown:hover .dropbtn {
-  background-color: red;
-}
+      .navbar a:hover,
+      .dropdown:hover .dropbtn {
+        background-color: red;
+      }
 
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+      }
 
-.dropdown-content a {
-  float: none;
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  text-align: left;
-}
+      .dropdown-content a {
+        float: none;
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        text-align: left;
+      }
 
-.dropdown-content a:hover {
-  background-color: #ddd;
-}
+      .dropdown-content a:hover {
+        background-color: #ddd;
+      }
 
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-</style>
-</head>
-<body>
- 
-<div class="navbar">
-  <a href="/">Inicio</a>
-  <div class="dropdown">
-    <button class="dropbtn">
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-      <a href="/registrar">Registrar</a>
-      <a href="/empresa">Empresa</a>
-      <a href="/empleados">Empleados</a>
-      <a href="/listados">Listados</a>
-    </div>
-  </div> 
-</div>
+      .dropdown:hover .dropdown-content {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <div class="navbar">
+      <a href="/">Inicio</a>
+
+      <% if(typeof user === 'undefined'){ %>
+      <a href="/vistaLoginEmpleados">Acceso Empleados</a>
+      <a href="/vistaLoginEmpresa"> Login Empresa</a>
+      <a href="/empresa">Crear cuenta Empresa</a>
+
+      <% }else{%> <% if(admin){ %>
+      <div>
+        <a href="#"><%=user%></a>
+        <a href="vistaRegistrarEmpleados">Registrar Empleados</a>
+        <a href="/vistafichajes"> Visualizar Fichajes</a>
+        <a href="/impartirjornadas">Configurar Jornadas</a>
+        <a href="/logout">Logout</a>
+      </div>
+      <% }else{%>
+      <div>
+        <a href="listadoempleados">Listado</a>
+        <a href="/vistafichajes">Fichajes</a>
+        <a href="/vistajornadas">Jornadas</a>
+        <a href="/logout">Logout</a>
+      </div>
+      <%}%>
+    
+
+    <%}%>
+  </div>
+
+
+  ------
+
+<!--
+  <div class="container">
+    Formulario para añadir empresas
+    <div class="row">
+            <div class="card">
+                <div class="card-body">
+                     <form action="/empresas" method="POST">
+                         <div class="form-group">
+                             <input type='text' name="cif" placeholder="Inserte un cif" 
+                             class="form-control">
+                         </div>
+                         <div class="form-group">
+                            <input type='text' name="nombre" placeholder="Inserte un nombre" 
+                            class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input type='text' name="apellidos" placeholder="Inserte los apellidos" 
+                            class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input type='password' name="password" placeholder="Inserte una contraseña" 
+                            class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input type='text' name="puesto" placeholder="Inserte el puesto de trabajo" 
+                            class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input type='number' name="codigoEmpleado" placeholder="Inserte un codigo de Empleado" 
+                            class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input type='text' name="email" placeholder="Inserte un email" 
+                            class="form-control">
+                        </div>
+                         <button type="submit" class="btn btn-primary btn-block">Enviar</button>
+                     </form>
+                </div>
+            </div>
+        </div>
+</div>   
+-->
+  </body>
+</html>

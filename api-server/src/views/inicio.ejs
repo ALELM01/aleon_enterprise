@@ -1,1 +1,7 @@
-<h2>hola!!</h2>
+<%- include('cabecera_pie/cabecera'); -%>
+<% if(typeof user === 'undefined'){ 
+ console.log("login not performed");
+}else{
+    console.log(user);
+}  %>
+<h2 style="color:aqua">HOLA!</h2>

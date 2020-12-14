@@ -3,11 +3,10 @@ const Schema = mongoose.Schema
 
 // El esquema es la estructura de la colección
 const SchemaEmpleado = new Schema({
-    _id: Number,
-    empleado: String,
     dni: String,
     nombre: String,
     apellidos: String,
+    password: String,
     puesto: String,
     codigoEmpleado: Number,
     email: String

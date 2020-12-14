@@ -7,10 +7,10 @@ router.use(bodyParser.json())
 router.use(function (req, res, next) {
     next()
   })
-  const Servicioempleados = require('../services/empleados')
- const servicioempleados = new Servicioempleados();
+  const Serviciofichajes = require('../services/fichajes')
+ const serviciofichajes = new Serviciofichajes();
 
-//EMPLEADO
+//FICHAJES
 
   
    //GET
@@ -20,12 +20,12 @@ router.use(function (req, res, next) {
   });
   */
  router.get('/', async function (req, res) { /*va bien*/
-  result = await servicioempleados.listarempleados()
-    res.send(result);
+  resultado = await serviciofichajes.listarfichajes()
+    res.send(resultado);
   });
 //por un id especifico
   router.get('/:id', async function (req, res) { /*va bien*/
-    resultado = await servicioempleados.idespecifico( req.params.id)
+    resultado = await serviciofichajes.idespecifico( req.params.id)
     res.send(resultado);
   });
   
@@ -33,14 +33,13 @@ router.use(function (req, res, next) {
   //POST
   router.post('/', async  (req, res) => {
       console.log(req.body)
-  resultado = servicioempleados.guardarempleado(req.body)
+  resultado = serviciofichajes.guardarfichajes(req.body)
   res.send(resultado);
   });
 
    //PUT
   router.put('/:id', async function (req, res) {
-    console.log(req.body)
-    resultado = await servicioempleados.modificarempleado( req.params.id, req.body)
+    resultado = await serviciofichajes.modificarfichaje( req.params.id, req.body)
     res.send('Modifique los datos');
     });
 
@@ -50,7 +49,7 @@ router.use(function (req, res, next) {
   //DELETE
 //por un id especifico
 router.delete('/:id', async function (req, res) { /*va bien*/
-  resultado = await servicioempleados.borrarespecifico( req.params.id)
+  resultado = await serviciofichajes.borrarespecifico( req.params.id)
   res.send();
 });
 

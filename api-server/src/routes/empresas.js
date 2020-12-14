@@ -1,41 +1,57 @@
-const express = require('express');
-const router = express.Router()
+const express = require("express");
+const router = express.Router();
 
-var bodyParser = require('body-parser')
-router.use(bodyParser.json())
+var bodyParser = require("body-parser");
+router.use(bodyParser.json());
+router.use(bodyParser.urlencoded());
 
 router.use(function (req, res, next) {
-    next()
-  })
-  const Servicioempresas = require('../services/empresa')
-  const servicioempresas = new Servicioempresas();
-  
+  next();
+});
+const Servicioempresas = require("../services/empresa");
+const servicioempresas = new Servicioempresas();
 
-  router.get('/', function (req, res) { 
-    res.send('Saludos desde la empresa');
-  });
+//Obtener
+//TODO: tengo que modificar tal y tal
+router.get("/", async function (req, res) {
+  /*va bien*/ console.log("GET /");
+  resultado = await servicioempresas.listarempresas();
+  res.send(resultado);
+});
 
-  router.get('/:id', async function (req, res) { 
-    resultado = await servicioempresas.listarempresas()
-    res.send(resultado);
-  });
+//por un id especifico
+router.get("/:id", async function (req, res) {
+  /*va bien*/ console.log("GET /" + req.params.id);
+  resultado = await servicioempresas.idespecifico(req.params.id);
+  console.log(resultado);
+  res.send(resultado);
+});
 
-  //POST
-  router.post('/', async  (req, res) => {
-    console.log(req.body)
-servicioempresas.guardarempresas(req.body)
-res.send('se ha guardado la empresa');
+//POST
+router.post("/", async (req, res) => {
+  console.log("/POST empresa");
+  console.log(req.body);
+  resultado = servicioempresas.guardarempresas(req.body);
+  res.send(resultado);
+});
+
+//PUT
+router.put("/:id", async function (req, res) {
+  resultado = await servicioempresas.modificarempresas(
+    req.params.id,
+    req.body
+  );
+  res.send("Modifique los datos");
+});
+
+//DELETE
+//por un id especifico
+router.delete("/:id", async function (req, res) {
+  /*va bien*/ resultado = await servicioempresas.borrarespecifico(
+    req.params.id
+  );
+  res.send("Se ha eliminado");
 });
 
 
-
-   //PUT
-  router.put('/:id', (req, res) => {
-    res.send('Modifique los datos');
-    });
-  //DELETE
-  router.delete('/:id', (req, res) => {
-    return res.send('Elimine los datos');
-  });
-
-  module.exports = router
+module.exports = router;
