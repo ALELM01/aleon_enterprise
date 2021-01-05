@@ -6,8 +6,14 @@ const Schema = mongoose.Schema
 const SchemaFichaje = new Schema({
     id_fichajes: Number,
     dni_empleado: String,
-    fecha_hora: Date,
-    fecha_modificacion: Date,
+    fecha_hora:{
+        type: Date,
+        default: Date.now
+    },
+    fecha_modificacion: {
+        type: Date,
+        default: Date.now
+    },
     tipo: String
 });
 // El primer argumento del modelo será la colección de Mongo

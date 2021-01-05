@@ -3,10 +3,11 @@ const Schema = mongoose.Schema
 
 // El esquema es la estructura de la colección
 const SchemaJornada = new Schema({
+    idEmpresa : String,
     duracion: Number,
     tipo: {
         type: String,
-        enum : ['fija','variable','semanal','mensual']
+        enum : ['complete','partialM','partialW']
     },
 });
 // El primer argumento del modelo será la colección de Mongo

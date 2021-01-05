@@ -93,16 +93,17 @@
       <% }else{%> <% if(admin){ %>
       <div>
         <a href="#"><%=user%></a>
-        <a href="vistaRegistrarEmpleados">Registrar Empleados</a>
-        <a href="/vistafichajes"> Visualizar Fichajes</a>
-        <a href="/impartirjornadas">Configurar Jornadas</a>
+        <a href="/vistaRegistrarEmpleados">Registrar Empleados</a>
+        <a href="/empresas/listadoempleados/<%=idEmpresa%>"> Visualizar empleados</a>
+        <a href="/empresas/configurarjornadas">Configurar Jornadas</a>
+        <a href="/empresas/vistajornadas">Jornadas</a>
         <a href="/logout">Logout</a>
       </div>
       <% }else{%>
       <div>
-        <a href="listadoempleados">Listado</a>
+        <a href="/vistaempleados/visualizarregistro">Hacer fichajes</a>
         <a href="/vistafichajes">Fichajes</a>
-        <a href="/vistajornadas">Jornadas</a>
+        <!-- Hacer resumen de jornadas de vcada mes para el empleado-->
         <a href="/logout">Logout</a>
       </div>
       <%}%>
@@ -110,51 +111,5 @@
 
     <%}%>
   </div>
-
-
-  ------
-
-<!--
-  <div class="container">
-    Formulario para añadir empresas
-    <div class="row">
-            <div class="card">
-                <div class="card-body">
-                     <form action="/empresas" method="POST">
-                         <div class="form-group">
-                             <input type='text' name="cif" placeholder="Inserte un cif" 
-                             class="form-control">
-                         </div>
-                         <div class="form-group">
-                            <input type='text' name="nombre" placeholder="Inserte un nombre" 
-                            class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <input type='text' name="apellidos" placeholder="Inserte los apellidos" 
-                            class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <input type='password' name="password" placeholder="Inserte una contraseña" 
-                            class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <input type='text' name="puesto" placeholder="Inserte el puesto de trabajo" 
-                            class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <input type='number' name="codigoEmpleado" placeholder="Inserte un codigo de Empleado" 
-                            class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <input type='text' name="email" placeholder="Inserte un email" 
-                            class="form-control">
-                        </div>
-                         <button type="submit" class="btn btn-primary btn-block">Enviar</button>
-                     </form>
-                </div>
-            </div>
-        </div>
-</div>   
--->
   </body>
 </html>

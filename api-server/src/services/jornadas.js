@@ -27,11 +27,11 @@ class serviciojornadas {
   }
 
   //llamada a base de datos
-  async listarjornadas() {
+  async listarjornadas(identEmpresa) {
     await this.connect();
     /*const resultado = await db.collection("empleados").find({}).toArray();
     console.log(resultado);*/
-    const result = await Jornada.find();
+    const result = await Jornada.find({idEmpresa : identEmpresa});
     console.log(result);
     return result;
   }
@@ -40,6 +40,8 @@ class serviciojornadas {
   async guardarjornadas(jsonjornadas) {
     await this.connect();
     const jorna = new Jornada(jsonjornadas);
+    console.log(jorna)
+    console.log('111111111111111111111111111111111111111')
     const result = await jorna.save();
     return result;
   }

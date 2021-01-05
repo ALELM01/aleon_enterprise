@@ -98,6 +98,7 @@ class servicioempresas {
   }
 
   //comprobacion
+  /*La funcion comprobacion sirve para registrar una empresa*/
   async comprobacion(nombre) {
     await this.connect();
     var result = await Empresa.findOne({ nombre: nombre });

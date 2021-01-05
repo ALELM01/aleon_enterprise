@@ -4,6 +4,10 @@ const session = require("express-session");
 const path = require("path");
 const Servicioempresas = require("./services/empresa");
 const servicioempresas = new Servicioempresas();
+const Servicioempleados = require("./services/empleados");
+const servicioempleados = new Servicioempleados();
+const Serviciojornadas = require('./services/jornadas')
+const serviciojornadas = new Serviciojornadas();
 // parse application/json
 var bodyParser = require("body-parser");
 app.use(bodyParser());
@@ -19,41 +23,56 @@ app.use(
   })
 );
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.locals.user = req.session.user;
   res.locals.admin = req.session.admin;
-  res.locals.empleado = req.session.empleado;
+  res.locals.employee = req.session.empleado;
+  res.locals.idEmpresa = req.session.idEmpresa;
+  res.locals.userid = req.session.userid;
   next();
 });
 
 // Authentication and Authorization Middleware
 var auth = function (req, res, next) {
-  if (req.session && req.session.user === "pepe" && req.session.admin) {
+  if (req.session && req.session.admin) {
     res.locals.user = req.session.user;
+    res.locals.idEmpresa = req.session.idEmpresa;
     res.locals.admin = req.session.admin;
-    res.locals.empleado = req.session.empleado;
+    res.locals.employee = req.session.employee;
     console.log(res.locals)
     next();
   } else return res.sendStatus(401);
 };
-
+var authempleado = function (req, res, next) {
+  if (req.session && req.session.user) {
+    res.locals.user = req.session.user;
+    res.locals.idEmpresa = req.session.idEmpresa;
+    res.locals.admin = req.session.admin;
+    res.locals.userid = req.session.userid;
+    res.locals.employee = req.session.employee;
+    console.log(res.locals)
+    next();
+  } else return res.sendStatus(401);
+};
 // Importing Routes
 const indexRoutes = require("./routes/index");
 const empleadosRoutes = require("./routes/empleados");
 const empresasRoutes = require("./routes/empresas");
 const jornadasRoutes = require("./routes/jornadas");
 const fichajesRoutes = require("./routes/fichajes");
+const vistaempleadosRoutes = require("./routes/vistaempleados");
+
 // Routes
 app.use("/", indexRoutes);
-app.use("/empleados", auth, empleadosRoutes);
+app.use("/empleados", authempleado, empleadosRoutes);
 app.use("/empresas", auth, empresasRoutes);
 app.use("/jornadas", jornadasRoutes);
 app.use("/fichajes", fichajesRoutes);
+app.use("/vistaempleados", vistaempleadosRoutes);
 
 //setting
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
-
 app.set("port", port);
 
 // Login endpoint
@@ -61,42 +80,38 @@ app.get("/login", async function (req, res) {
   result = await servicioempresas.filtrologin(req.query.nombre, req.query.password)
   console.log('login inicio');
   console.log(result);
-  if (result == null){
+  if (result == null) {
     res.redirect('vistaloginempresa')
   }
-  
+
   else {
-      req.session.user = result.nombre;
-      req.session.admin = true;
-      req.session.empleado = false;
+    req.session.user = result.nombre;
+    req.session.idEmpresa = result._id;
+    req.session.admin = true;
+    req.session.employee = false;
     res.redirect('/')
   }
 });
 
-// Logout endpoint
-app.get("/logout", function (req, res) {
-  req.session.destroy();
-  /*res.send("logout success!");*/
-  res.redirect("/")
-});
 
 // Login endpoint
-app.get("/loginempl", function (req, res) {
-  console.log(req.query);
-  if (!req.query.nombre || !req.query.password) {
-    console.log("no he llegado a iniciar sesion");
-    res.render("loginempleado");
-  } else if (
-    req.query.nombre === "pepe" &&
-    req.query.password === "alejandro"
-  ) {
-    req.session.user = "pepe";
+app.get("/loginempl", async function (req, res) {
+  result = await servicioempleados.filtrologinempl(req.query.nombre, req.query.password)
+  console.log(req.query.nombre, req.query.password);
+  console.log('login inicio');
+  console.log(result);
+  if (result == null) {
+    res.redirect('vistaLoginEmpleados')
+  }
+
+  else {
+
+    req.session.user = result.nombre;
+    req.session.idEmpresa = result.idEmpresa;
+    req.session.userid = result._id;
     req.session.admin = false;
-    req.session.empleado = true;
-    console.log("he llegado a iniciar sesion");
-    res.redirect("/");
-  } else {
-    res.render("loginempleado");
+    req.session.employee = true;
+    res.redirect('/')
   }
 });
 

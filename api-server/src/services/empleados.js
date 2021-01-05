@@ -1,9 +1,10 @@
 const { MongoClient, ObjectID } = require("mongodb");
 const mongoose = require("mongoose");
 const Empleados = require("../models/empleado");
+const empresa = require("../models/empresa");
 
 class servicioempleados {
-  constructor() {}
+  constructor() { }
 
   async connect() {
     try {
@@ -44,18 +45,18 @@ class servicioempleados {
       .collection("empleados")
       .find({ _id: ObjectID(id) })
       .toArray();*/
-    const result = await Empleados.findOne({ _id: id });
+    const result = await Empleados.findOne({ _id: id }); //el de la izquiera es el campo del modelo, el de la derecha es el valor.
     console.log(result);
     return result;
   }
 
   //modificar un empleado
-  async modificarempleado(id, datosNuevos) {
+  async modificarempleado(id2, datosNuevos) {
     await this.connect();
     /*const result = await db
       .collection("empleados")
       .findOne({ _id: ObjectID(id) });*/
-    const result = await Empleados.findOne({ _id: id });
+    const result = await Empleados.findOne({ _id: id2});
     console.log("result: " + JSON.stringify(result));
     result.dni = datosNuevos.dni;
     result.nombre = datosNuevos.nombre;
@@ -100,9 +101,41 @@ class servicioempleados {
   async guardarempleado(jsonempleado) {
     await this.connect();
     const emplead = new Empleados(jsonempleado);
-    const result = await emplead.save();
+    const result = await emplead.save()
+    console.log(1)
+    return result;
+  }
+
+  /*pasar identificador empresa a empleado*/
+  async filtrarempresa(idEmpresa) {
+    await this.connect();
+    const filtro = await Empleados.find({ idEmpresa: idEmpresa });
+    console.log(filtro);
+    return filtro;
+  }
+
+  //filtro login
+  //filtro de login
+  async filtrologinempl(nombre, contrasenia) {
+    await this.connect();
+    var result = await Empleados.findOne({
+      nombre: nombre,
+      password: contrasenia,
+    });
+    console.log(result);
+    return result;
+  }
+  //comprobacion
+  async comprobacionempl(nombre) {
+    await this.connect();
+    var result = await Empleado.findOne({ nombre: nombre });
+    console.log(result);
     return result;
   }
 }
+
+
+
+
 
 module.exports = servicioempleados;

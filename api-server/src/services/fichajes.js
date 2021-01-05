@@ -2,7 +2,7 @@ const { MongoClient, ObjectID } = require("mongodb");
 const mongoose = require("mongoose");
 const Fichaje = require("../models/fichaje");
 class serviciofichajes {
-  constructor() {}
+  constructor() { }
 
   async connect() {
     try {
@@ -37,6 +37,8 @@ class serviciofichajes {
   }
 
   //guardar una fichaje
+  //Servico para que un empleado pueda fichar
+/* Aquí será donde el empleado podrá hacer un fichaje sobre su día trabajado */
   async guardarfichajes(jsonfichajes) {
     await this.connect();
     const ficha = new Fichaje(jsonfichajes);
@@ -80,5 +82,21 @@ class serviciofichajes {
     console.log("Se ha eliminado");
     return result;
   }
+  //filtrar 
+  async filtro(dni_empleado) {
+    await this.connect();
+    var result = await Fichaje.find({
+      dni_empleado: dni_empleado
+    });
+    console.log(result);
+    return result;
+  }
+
+
 }
+
+
+
+
+
 module.exports = serviciofichajes;

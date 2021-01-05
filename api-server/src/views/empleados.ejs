@@ -5,8 +5,12 @@
             <div class="card">
                 <div class="card-body">
                      <form action="/empleados" method="POST">
+                        <div class="form-group">
+                            <input type='hidden' name="idEmpresa" value="<%=idEmpresa%>" 
+                            class="form-control" >
+                        </div>
                          <div class="form-group">
-                             <input type='text' name="cif" placeholder="Inserte un cif" 
+                             <input type='text' name="dni" placeholder="Inserte un DNI" 
                              class="form-control" >
                          </div>
                          <div class="form-group">

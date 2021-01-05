@@ -3,12 +3,19 @@ const Schema = mongoose.Schema
 
 // El esquema es la estructura de la colección
 const SchemaEmpleado = new Schema({
-    dni: String,
+    idEmpresa : String,
+    dni: {
+        type: String,
+        required: true
+      },
     nombre: String,
     apellidos: String,
     password: String,
     puesto: String,
-    codigoEmpleado: Number,
+    codigoEmpleado:  {
+        type: Number,
+        required: true
+      },
     email: String
 });
 // El primer argumento del modelo será la colección de Mongo

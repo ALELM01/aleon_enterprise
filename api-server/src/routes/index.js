@@ -2,13 +2,21 @@ const express = require('express');
 const router = express.Router()
 const {MongoClient, connect} = require('mongodb');
 const { get } = require('mongoose');
+
+//SERVICIOS UTILIZADOS DE EMPRESA Y EMPLEADOS
 const Servicioempleados = require('../services/empleados')
 const servicioempleados = new Servicioempleados();
 const Servicioempresas = require("../services/empresa");
 const servicioempresas = new Servicioempresas();
+
 router.use(function (req, res, next) {
     next()
   })
+  
+//----------------------------------------------------//
+
+
+
 
 router.get('/', async (req, res) => {
   console.log(req.session);
@@ -22,21 +30,23 @@ router.get('/vistaLoginEmpresa', async (req, res) => {
 router.get('/vistaLoginEmpleados', async (req, res) => {
   res.render('loginempleado')
 })
+
 router.get('/vistaRegistrarEmpleados', async (req, res) => {
   res.render('empleados')
 })
 
-router.get('/vistafichajes', async (req, res) => {
-  res.render('fichajes')
-})
-
+//VISUALIZAR JORNADAS
+/*
 router.get('/vistajornadas', async (req, res) => {
   res.render('jornadas')
 })
+*/
 
-router.get('/impartirjornadas', async (req, res) => {
-  res.render('impartirjornadas')
-})
+
+
+
+
+
 
 router.get('/listadoempleados', async (req, res) => {
   result = await servicioempleados.listarempleados()
@@ -82,6 +92,10 @@ router.get('/vistaempleados', async (req, res) => {
 router.get('/empresa', async (req, res) => {
     res.render('empresa')
 })
+
+
+
+
 router.post("/regiempre", async (req, res) => {
   console.log("/POST empresa");
   console.log(req.body);

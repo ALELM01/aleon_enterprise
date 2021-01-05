@@ -1,0 +1,27 @@
+<%- include('cabecera_pie/cabecera'); -%>
+
+    <p>Se ha registrado tu fichaje</p>
+    <!-- Formulario para que un empleado realice un fichaje-->
+    <div class="row">
+        <div class="card">
+            <div class="card-body">
+                <form action="/vistaempleados/registrarfichaje" method="POST">
+                    <div class="form-group">
+                        <input type='text' name="idEmpleado" value="<%=userid%>" class="form-control">
+                        <button type="submit" class="btn btn-primary btn-block">Ficha aqui</button>
+                    </div>
+                </form>
+                <%
+                var e = new Date();
+                var w = e.toLocaleDateString();
+                var t = e.getHours();
+                var h = e.getMinutes();
+                %>
+                <%= w %>
+                <%= t %>:<%= h %>
+            </div>
+        </div>
+    </div>
+    </body>
+
+    </html>

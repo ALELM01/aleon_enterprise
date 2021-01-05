@@ -1,0 +1,34 @@
+<%- include('cabecera_pie/cabecera'); -%>
+
+<h1>Registrate</h1>
+<div class="container">
+    <!-- Formulario para añadir empresas-->
+    <div class="row">
+            <div class="card">
+                <div class="card-body">
+                     <form action="/empresas/guardarjornada" method="POST">
+                        <div class="form-group">
+                            <input type='hidden' name="idEmpresa" value="<%=idEmpresa%>" 
+                            class="form-control" >
+                        </div>
+                        <div class="form-group">
+                            <input type='number' name="duracion" placeholder="Numero de horas" 
+                            class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input type="radio" id="completa" name="tipo" value="complete">
+                            <label for="complete">Complete</label><br>
+                            <input type="radio" id="partialM" name="tipo" value="partialM">
+                            <label for="partialM">Partial Month</label><br>
+                            <input type="radio" id="partialW" name="tipo" value="partialW">
+                            <label for="partialW">Partial Week</label><br><br>
+                        </div>
+                         <button type="submit" class="btn btn-primary btn-block">Enviar</button>
+                     </form>
+                </div>
+            </div>
+        </div>
+</div>     
+    
+</body>
+</html>

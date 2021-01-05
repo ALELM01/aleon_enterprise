@@ -9,21 +9,33 @@
         <thead>
             <br />
             <tr class="table100-head">
-                <th>IdEmpleado</th>
                 <th>Nombre</th>
                 <th>Apellidos</th>
-                <th></th>
+                <th>DNI</th>
+                <th>Puesto</th>
+                <th>Codigo Empleado</th>
+                <th>Email</th>
+                <th>Operaciones</th>
             </tr>
         </thead>
         <tbody id="myTable">
+            
             <% for(var i = 0; i < result.length; i++) { %>
-              <!-- <%= result[i] %>-->
-               <td><%= result[i]._id%></td>
+                <tr>
+              <!-- <%= result[i] %>--> 
                <td><%= result[i].nombre%></td>
                <td><%= result[i].apellidos%></td>
+               <td><%= result[i].dni%></td>
+               <td><%= result[i].puesto%></td>
+               <td><%= result[i].codigoEmpleado%></td>
+               <td><%= result[i].email%></td>
+               <td><a href="/empresas/visualizarfichajes/<%= result[i].dni%>"><button type="button" class="btn btn-outline-primary">Fichajes</button></a>
+                <a href="/empresas/mostrarempleado/<%= result[i]._id%>"><button type="button" class="btn btn-outline-primary">Modificar</button></a>
+                <a href="/empresas/deshabilitar/<%= result[i].dni%>"><button type="button" class="btn btn-outline-danger">Deshabilitar</button></a></td>
+            </tr> 
             <% } %>
-                            
-        
+       
+                
     </tbody>
     </table>
   <!--  <%= result %> -->
